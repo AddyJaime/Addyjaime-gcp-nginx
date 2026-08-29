@@ -5,10 +5,19 @@ on:
     branches:
       - main
 
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs: 
   terraform: #id interno del job 
     name: Terraform apply 
     runs-on: ubuntu-latest
+
+    permissions:
+        contents: read
+        id-token: write
 
     steps: #lista de tareas que el job va a ejecutar
         - name: Checkout code #description legible del step
@@ -24,13 +33,13 @@ jobs:
           uses: hashicorp/setup-terraform@v3
 
         - name: Terraform init
-          run: Terraform init 
+          run: terraform init 
           
 
         - name: Terrafrom plan
-          run: Terraform plan
+          run: terraform plan
 
 
         - name: Terraform apply 
-          run: Terraform apply -auto-approve
+          run: terraform apply -auto-approve
  #"antes de ejecutar el comando, entra a la carpeta terraform/".
