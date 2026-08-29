@@ -1,0 +1,36 @@
+name: Deploy Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  terraform: #id interno del job 
+    name: Terraform apply 
+    runs-on: ubuntu-latest
+
+    steps: #lista de tareas que el job va a ejecutar
+        - name: Checkout code #description legible del step
+          uses: actions/checkout@v4 #alguna actions que el stjep va a realizar, uses usa una actions coustruida por alguien mas
+
+        - name: Auhtenticate to google cloud 
+          uses: google-github-actions/auth@v2
+          with: 
+            workload_identity_provider: 'projects/1052898616540/locations/global/workloadIdentityPools/github/providers/github-provider'
+            service_account: 'github-actions-sa@learning-486115.iam.gserviceaccount.com'
+
+        - name: Setup Terraform #instalal el cli de terrafrom en el runner de Ubuntu
+          uses: hashicorp/setup-terraform@v3
+
+        - name: Terraform init
+          run: Terraform init 
+          
+
+        - name: Terrafrom plan
+          run: Terraform plan
+
+
+        - name: Terraform apply 
+          run: Terraform apply -auto-approve
+ #"antes de ejecutar el comando, entra a la carpeta terraform/".

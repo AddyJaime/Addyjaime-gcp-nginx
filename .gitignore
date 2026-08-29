@@ -1,0 +1,20 @@
+# Terraform local cache
+.terraform/
+.terraform.lock.hcl
+
+# Terraform state files (should be in remote backend)
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Crash logs
+crash.log
+crash.*.log
+
+# CLI configuration
+.terraformrc
+terraform.rc
